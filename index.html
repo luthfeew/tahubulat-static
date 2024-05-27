@@ -42,11 +42,12 @@
     </nav>
     <section class="section">
       <div class="container">
-        <h1 class="title">Genshin Impact Text UwUfier</h1>
+        <h1 class="title">Genshin Impact Text Modifier</h1>
         <p class="subtitle">
-          Input your message and see the <strong>magic</strong> happens!
+          <!-- Input your message and see the <strong>magic</strong> happens! -->
+          Input your message, copy the output, and paste it in Genshin Impact
+          chat and see the <strong>magic</strong> happens!
         </p>
-        <!-- TODO: + 10 for color + 8 for size -->
         <div
           class="columns"
           x-data="{ 
@@ -54,8 +55,36 @@
             color: '',
             size: '',
             count: 0,
+            uncensor: '',
             output: '',
             copied: false,
+            wordList: {
+              'A': 'А',
+              'a': 'а',
+              'E': 'Е',
+              'e': 'е',
+              'O': 'О',
+              'o': 'о',
+              'I': 'І',
+              'i': 'і',
+            },
+            wordListExtended: {
+              'B': 'В',
+              'K': 'К',
+              'M': 'М',
+              'H': 'Н',
+              'P': 'Р',
+              'p': 'р',
+              'C': 'С',
+              'c': 'с',
+              'T': 'Т',
+              'y': 'у',
+              'X': 'Х',
+              'x': 'х',
+              'V': 'Ѵ',
+              'v': 'ѵ',
+              'u': 'υ',
+            },
             process() {
               if (!this.message) {
                 this.output = '';
@@ -150,9 +179,20 @@
                 />
               </div>
             </div>
+            <!-- <div class="field">
+              <label class="label">Uncensor</label>
+              <div class="control">
+                <div class="select">
+                  <select x-model="uncensor" x-on:change="process">
+                    <option value="">No</option>
+                    <option value="1">Yes</option>
+                    <option value="2">Yes (Extended)</option>
+                  </select>
+                </div>
+              </div>
+            </div> -->
             <article class="message is-success">
               <div class="message-body">
-                <!-- <strong>Signature limit:</strong> <span></span> / 40 characters -->
                 <strong>Message limit:</strong> <span x-text="count"></span> /
                 80 characters
               </div>
