@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
+  </head>
+  <body>
+    <div
+      x-data="{ 
+        message: '',
+        color: '',
+        size: '',
+        count: 0,
+        output: '',
+        process() {
+            this.colorPrefix = this.color ? '<っはぬはひ=' + this.color + '>' : '';
+            this.colorSuffix = this.color ? '</っはぬはひ>' : '';
+            this.sizePrefix = this.size ? '<びどぺづ=' + this.size + '>' : '';
+            this.sizeSuffix = this.size ? '</びどぺづ>' : '';
+            this.tag = this.colorPrefix + this.sizePrefix + this.sizeSuffix + this.colorSuffix;
+            this.count = this.tag.length + this.message.length;
+            if (this.count > 80) {
+                this.output = this.colorPrefix + this.sizePrefix + this.message.slice(0, 80 - this.tag.length) + this.sizeSuffix + this.colorSuffix;
+            } else {
+                this.output = this.colorPrefix + this.sizePrefix + this.message + this.sizeSuffix + this.colorSuffix;
+            }
+        }
+    }"
+    >
+      <textarea x-model="message" x-on:keyup="process"></textarea>
+      <select x-model="color" x-on:change="process">
+        <option value="">Default</option>
+        <option value="red">Red</option>
+        <option value="blue">Blue</option>
+        <option value="green">Green</option>
+      </select>
+      <input type="number" x-model="size" x-on:keyup="process" />
+      <textarea x-text="output"></textarea>
+      <span x-text="count"></span> / 80
+    </div>
+  </body>
+</html>
