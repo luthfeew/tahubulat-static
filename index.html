@@ -46,6 +46,7 @@
         <p class="subtitle">
           Input your message and see the <strong>magic</strong> happens!
         </p>
+        <!-- TODO: + 10 for color + 8 for size -->
         <div
           class="columns"
           x-data="{ 
@@ -67,14 +68,17 @@
               this.sizePrefix = this.size ? '<びどぺづ=' + this.size + '>' : '';
               this.sizeSuffix = this.size ? '</びどぺづ>' : '';
               this.tag = this.colorPrefix + this.sizePrefix + this.sizeSuffix + this.colorSuffix;
-              this.count = this.tag.length + this.message.length;
+              this.count = this.tag.length;
+              this.count = this.color ? this.count + 10 : this.count;
+              this.count = this.size ? this.count + 8 : this.count;
+              this.count = this.message.length + this.count;
               if (this.count > 80) {
-                    this.output = this.colorPrefix + this.sizePrefix + this.message.slice(0, 80 - this.tag.length) + this.sizeSuffix + this.colorSuffix;
+                    this.output = this.colorPrefix + this.sizePrefix + this.message.slice(0, 80 - this.count) + this.sizeSuffix + this.colorSuffix;
               } else {
                     this.output = this.colorPrefix + this.sizePrefix + this.message + this.sizeSuffix + this.colorSuffix;
               }
             },
-            clear() {
+            reset() {
               this.message = '';
               this.color = '';
               this.size = '';
@@ -99,8 +103,8 @@
                 ></textarea>
               </div>
             </div>
-            <button class="button is-warning is-fullwidth" x-on:click="clear">
-              Clear
+            <button class="button is-warning is-fullwidth" x-on:click="reset">
+              Reset
             </button>
           </div>
           <div class="column">
