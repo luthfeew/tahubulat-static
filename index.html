@@ -1,47 +1,185 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>TahuBulat</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css"
+    />
+    <style>
+      input::-webkit-outer-spin-button,
+      input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+
+      input[type="number"] {
+        -moz-appearance: textfield;
+      }
+    </style>
+    <script
+      src="https://kit.fontawesome.com/c5909a2683.js"
+      crossorigin="anonymous"
+    ></script>
     <script
       defer
       src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
     ></script>
   </head>
-  <body>
-    <div
-      x-data="{ 
-        message: '',
-        color: '',
-        size: '',
-        count: 0,
-        output: '',
-        process() {
-            this.colorPrefix = this.color ? '<っはぬはひ=' + this.color + '>' : '';
-            this.colorSuffix = this.color ? '</っはぬはひ>' : '';
-            this.sizePrefix = this.size ? '<びどぺづ=' + this.size + '>' : '';
-            this.sizeSuffix = this.size ? '</びどぺづ>' : '';
-            this.tag = this.colorPrefix + this.sizePrefix + this.sizeSuffix + this.colorSuffix;
-            this.count = this.tag.length + this.message.length;
-            if (this.count > 80) {
-                this.output = this.colorPrefix + this.sizePrefix + this.message.slice(0, 80 - this.tag.length) + this.sizeSuffix + this.colorSuffix;
-            } else {
-                this.output = this.colorPrefix + this.sizePrefix + this.message + this.sizeSuffix + this.colorSuffix;
-            }
-        }
-    }"
+  <body class="has-navbar-fixed-top">
+    <nav
+      class="navbar is-fixed-top is-danger"
+      role="navigation"
+      aria-label="main navigation"
     >
-      <textarea x-model="message" x-on:keyup="process"></textarea>
-      <select x-model="color" x-on:change="process">
-        <option value="">Default</option>
-        <option value="red">Red</option>
-        <option value="blue">Blue</option>
-        <option value="green">Green</option>
-      </select>
-      <input type="number" x-model="size" x-on:keyup="process" />
-      <textarea x-text="output"></textarea>
-      <span x-text="count"></span> / 80
-    </div>
+      <div class="navbar-brand">
+        <a class="navbar-item" href="#">
+          <strong class="is-size-4">TahuBulat UwU</strong>
+        </a>
+      </div>
+    </nav>
+    <section class="section">
+      <div class="container">
+        <h1 class="title">Genshin Impact Text UwUfier</h1>
+        <p class="subtitle">
+          Input your message and see the <strong>magic</strong> happens!
+        </p>
+        <div
+          class="columns"
+          x-data="{ 
+            message: '',
+            color: '',
+            size: '',
+            count: 0,
+            output: '',
+            copied: false,
+            process() {
+              if (!this.message) {
+                this.output = '';
+                this.count = 0;
+                return;
+              }
+              this.copied = false;
+              this.colorPrefix = this.color ? '<っはぬはひ=' + this.color + '>' : '';
+              this.colorSuffix = this.color ? '</っはぬはひ>' : '';
+              this.sizePrefix = this.size ? '<びどぺづ=' + this.size + '>' : '';
+              this.sizeSuffix = this.size ? '</びどぺづ>' : '';
+              this.tag = this.colorPrefix + this.sizePrefix + this.sizeSuffix + this.colorSuffix;
+              this.count = this.tag.length + this.message.length;
+              if (this.count > 80) {
+                    this.output = this.colorPrefix + this.sizePrefix + this.message.slice(0, 80 - this.tag.length) + this.sizeSuffix + this.colorSuffix;
+              } else {
+                    this.output = this.colorPrefix + this.sizePrefix + this.message + this.sizeSuffix + this.colorSuffix;
+              }
+            },
+            clear() {
+              this.message = '';
+              this.color = '';
+              this.size = '';
+              this.output = '';
+              this.count = 0;
+            },
+            copy() {
+              navigator.clipboard.writeText(this.output);
+              this.copied = true;
+            }
+          }"
+        >
+          <div class="column">
+            <div class="field">
+              <label class="label">Input</label>
+              <div class="control">
+                <textarea
+                  x-model="message"
+                  x-on:keyup="process"
+                  class="textarea"
+                  placeholder="input your message here"
+                ></textarea>
+              </div>
+            </div>
+            <button class="button is-warning is-fullwidth" x-on:click="clear">
+              Clear
+            </button>
+          </div>
+          <div class="column">
+            <div class="field">
+              <label class="label">Color</label>
+              <div class="control">
+                <div class="select">
+                  <select x-model="color" x-on:change="process">
+                    <option value="">Default</option>
+                    <option value="aqua">Aqua</option>
+                    <option value="black">Black</option>
+                    <option value="blue">Blue</option>
+                    <option value="brown">Brown</option>
+                    <option value="darkblue">Dark Blue</option>
+                    <option value="fuchsia">Fuchsia</option>
+                    <option value="green">Green</option>
+                    <option value="grey">Grey</option>
+                    <option value="lightblue">Light Blue</option>
+                    <option value="lime">Lime</option>
+                    <option value="maroon">Maroon</option>
+                    <option value="navy">Navy</option>
+                    <option value="olive">Olive</option>
+                    <option value="orange">Orange</option>
+                    <option value="purple">Purple</option>
+                    <option value="red">Red</option>
+                    <option value="silver">Silver</option>
+                    <option value="teal">Teal</option>
+                    <option value="yellow">Yellow</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="field">
+              <label class="label">Size (number) (default = empty)</label>
+              <div class="control">
+                <input
+                  x-model="size"
+                  x-on:keyup="process"
+                  class="input"
+                  type="number"
+                  min="0"
+                />
+              </div>
+            </div>
+            <article class="message is-success">
+              <div class="message-body">
+                <!-- <strong>Signature limit:</strong> <span></span> / 40 characters -->
+                <strong>Message limit:</strong> <span x-text="count"></span> /
+                80 characters
+              </div>
+            </article>
+          </div>
+          <div class="column">
+            <div class="field">
+              <label class="label">Output</label>
+              <div class="control">
+                <textarea x-text="output" class="textarea" readonly></textarea>
+              </div>
+            </div>
+            <button
+              class="button is-link is-fullwidth"
+              x-on:click="copy"
+              x-text="copied ? `Copied!` : `Copy`"
+            >
+              Copy
+            </button>
+          </div>
+        </div>
+        <section class="hero is-small is-info mt-6">
+          <div class="hero-body">
+            <p class="subtitle has-text-centered">
+              <i class="fa-solid fa-code"></i> with
+              <i class="fa-solid fa-heart"></i> by <strong>TahuBulat</strong>.
+              <br />
+              <i class="fa-brands fa-discord"></i> .tahubulat.
+            </p>
+          </div>
+        </section>
+      </div>
+    </section>
   </body>
 </html>
